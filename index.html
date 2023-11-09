@@ -1,0 +1,276 @@
+<html onkeydown="dino(event)">
+<head>
+<style>
+body
+{
+margin:0;
+padding:0;
+overflow:hidden;
+}
+.container
+{
+height:100%;
+width:100%;
+background-image:url("skyscene.jpg");
+background-size:100% 100%;
+}
+.dinosour
+{
+background-image:url("ajay.png");
+width:80px;
+height:120px;
+background-size:100% 100%;
+position:absolute;
+bottom:0px;
+left:200px;
+}
+#dragon
+{
+background-image:url("aeroplane.png");
+width:150px;
+height:70px;
+background-size:100% 100%;
+position:absolute;
+bottom:40px;
+right:-120px;
+}
+.animatedino
+{
+animation:abc 0.8s linear;
+}
+@keyframes abc
+{
+0%
+{
+bottom:0px;
+}
+50%
+{
+bottom:300px;
+}
+100%
+{
+bottom:0px;
+}
+}
+.animatedragon
+{
+animation-name:pqr;
+animation-iteration-count:infinite;
+animation-timing-function:linear;
+}
+@keyframes pqr
+{
+from
+{
+right:-120px;
+}
+to
+{
+right:1350px;
+}
+}
+
+#score,#writescore
+{
+font-size:50px;
+font-weight:bold;
+}
+#start
+{
+font-size:50px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px blue,2px -2px blue,-2px 2px blue,-2px -2px blue;
+position:absolute;
+left:550px;
+top:120px;
+cursor:pointer;
+}
+#gameover
+{
+font-size:50px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px black,2px -2px black,-2px 2px black,-2px -2px black;
+position:absolute;
+left:550px;
+top:120px;
+cursor:pointer;
+visibility:hidden;
+}
+.planeout
+{
+animation-name:tht;
+animation-duration:1s;
+animation-iteration-count:1;
+animation-timing-function:linear-in-out;
+}
+@keyframes tht
+{
+0%
+{
+left:200px;
+bottom:0px;
+}
+40%
+{left:200px;
+bottom:200px;
+}
+90%
+{left:200px;
+bottom:-300px;
+}
+}
+#welcome
+{
+font-size:40px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px black,2px -2px black,-2px 2px black,-2px -2px black;
+position:absolute;
+left:300px;
+top:120px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<span id="writescore">Your Score : </span>
+<span id="score">0</span>
+<div id="welcome">welcome to runway34 - created by Pramod</div>
+<div class="dinosour"></div>
+<div id="dragon" class="animatedragon"></div>
+<div id="gameover">Game Over</div>
+</div>
+<script>
+var song=new Audio("Egovert.mp3");
+setTimeout(love,2000);
+function love()
+{
+song.play();
+}
+function dino(e)
+{
+var u=e.keyCode;
+console.log(u);
+if(u==32)
+{
+document.getElementsByClassName("dinosour")[0].classList.add("animatedino");
+}
+if(u==39)
+{
+var ar=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).left);
+ar+=30;
+document.getElementsByClassName("dinosour")[0].style.left=ar+"px";
+}
+if(u==37)
+{
+var al=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).left);
+al-=30;
+document.getElementsByClassName("dinosour")[0].style.left=al+"px";
+}
+function xyz()
+{
+document.getElementsByClassName("dinosour")[0].classList.remove("animatedino");
+}
+setTimeout(xyz,800);
+}
+var drag=setInterval(yourscore,500);
+function yourscore()
+{
+var g=document.getElementById("score").innerText;
+var g=g+"+"+1;
+document.getElementById("score").innerText=eval(g);
+}
+
+var go=setInterval(()=>{
+var ah=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).height)/2;
+var aw=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).width)/2;
+var ph=parseInt(window.getComputedStyle(document.getElementById("dragon")).height)/2;
+var pw=parseInt(window.getComputedStyle(document.getElementById("dragon")).width)/2;
+
+var ax=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).left)+aw;
+var px=parseInt(window.getComputedStyle(document.getElementById("dragon")).left)+pw;
+var ay=parseInt(window.getComputedStyle(document.getElementsByClassName("dinosour")[0]).top)+ah;
+var py=parseInt(window.getComputedStyle(document.getElementById("dragon")).top)+ph;
+var lw=Math.abs(ax-px);
+var th=Math.abs(ay-py);
+if(lw<aw+pw && th<ah+ph)
+{
+song.pause();
+new Audio("Dargi.mp3").play();
+document.getElementById("welcome").innerText="";
+document.getElementById("gameover").style.visibility="visible";
+document.getElementById("dragon").classList.remove("animatedragon");
+document.getElementById("dragon").classList.add("planeout");
+setTimeout(over,3000);
+function over()
+{
+document.getElementById("dragon").classList.remove("planeout");
+}
+clearInterval(drag);
+clearInterval(go);
+}
+},1);
+setInterval(turbo,1);
+function turbo()
+{
+var k=document.getElementById("score").innerText;
+if(k<=20)
+{
+document.getElementById("dragon").style.animationDuration=2.5+"s";
+}
+else if(k>=20 && k<=40)
+{
+document.getElementById("dragon").style.animationDuration=2.4+"s";
+}
+else if(k>=40 && k<=60)
+{
+document.getElementById("dragon").style.animationDuration=2.3+"s";
+//console.log(h);
+}
+else if(k>=60 && k<=80)
+{
+document.getElementById("dragon").style.animationDuration=2.3+"s";
+//console.log(h);
+}
+else if(k>=80 && k<=100)
+{
+document.getElementById("dragon").style.animationDuration=2.2+"s";
+//console.log(h);
+}
+else if(k>=100 && k<=120)
+{
+document.getElementById("dragon").style.animationDuration=2.1+"s";
+//console.log(h);
+}
+else if(k>=120 && k<=140)
+{
+document.getElementById("dragon").style.animationDuration=2+"s";
+//console.log(h);
+}
+else if(k>=140 && k<=160)
+{
+document.getElementById("dragon").style.animationDuration=1.8+"s";
+//console.log(h);
+}
+else if(k>=160 && k<=180)
+{
+document.getElementById("dragon").style.animationDuration=1.6+"s";
+//console.log(h);
+}
+else if(k>=180 && k<=200)
+{
+document.getElementById("dragon").style.animationDuration=1.3+"s";
+//console.log(h);
+}
+else if(k>=200)
+{
+document.getElementById("dragon").style.animationDuration=1+"s";
+//console.log(h);
+}
+}
+</script>
+</body>
+</html>
